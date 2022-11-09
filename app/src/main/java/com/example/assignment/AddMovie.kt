@@ -22,19 +22,21 @@ class AddMovie : AppCompatActivity() {
 	}
 
 	fun addMovie(view: View) {
+		var valid = true
+
 		if (findViewById<EditText>(R.id.nameET).text.toString().isEmpty()) {
 			findViewById<EditText>(R.id.nameET).error = "Title of movie cannot be empty."
-			return
+			valid = false
 		}
 
 		if (findViewById<EditText>(R.id.descET).text.toString().isEmpty()) {
 			findViewById<EditText>(R.id.descET).error = "Description of movie cannot be empty."
-			return
+			valid = false
 		}
 
 		if (findViewById<EditText>(R.id.dateET).text.toString().isEmpty()) {
 			findViewById<EditText>(R.id.dateET).error = "Release date of movie cannot be empty."
-			return
+			valid = false
 		}
 
 		if (findViewById<LinearLayout>(R.id.checkboxes).visibility == View.VISIBLE && !(findViewById<CheckBox>(
@@ -46,24 +48,27 @@ class AddMovie : AppCompatActivity() {
 				"Please select a reason for not suitable for all audience",
 				Toast.LENGTH_SHORT
 			).show()
-			return
+			valid = false
 		}
 
-		var title = findViewById<EditText>(R.id.nameET)
-		var description = findViewById<EditText>(R.id.descET)
+		if (!valid) return
+
+		var title = findViewById<EditText>(R.id.nameET).text
+		var description = findViewById<EditText>(R.id.descET).text
 		var language =
-			if (findViewById<CheckBox>(R.id.englishRB).isChecked) "English" else if (findViewById<CheckBox>(
+			if (findViewById<RadioButton>(R.id.englishRB).isChecked) "English" else if (findViewById<RadioButton>(
 					R.id.chineseRB
 				).isChecked
-			) "Chinese" else if (findViewById<CheckBox>(R.id.malayRB).isChecked) "Malay" else "Tamil"
-		var date = findViewById<EditText>(R.id.dateET)
-
+			) "Chinese" else if (findViewById<RadioButton>(R.id.malayRB).isChecked) "Malay" else "Tamil"
+		var date = findViewById<EditText>(R.id.dateET).text
+		var suitableForAll = findViewById<LinearLayout>(R.id.checkboxes).visibility == View.INVISIBLE
 		var text =
-			"Title = $title\nOverview = $description\nRelease Date = $date\nLanguage = $language\nNot suitable for all ages = ${
-				findViewById<LinearLayout>(R.id.checkboxes).visibility == View.INVISIBLE
-			}"
-		if (findViewById<CheckBox>(R.id.violenceCB).isChecked) text += "Violence"
-		if (findViewById<CheckBox>(R.id.languageCB).isChecked) text += "Language"
+			"Title = $title\nOverview = $description\nRelease Date = $date\nLanguage = $language\nNot suitable for all ages = ${!suitableForAll}"
+
+		if (!suitableForAll) {
+			if (findViewById<CheckBox>(R.id.violenceCB).isChecked) text += "\nViolence"
+			if (findViewById<CheckBox>(R.id.languageCB).isChecked) text += "\nLanguage"
+		}
 		Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
 	}
 }
