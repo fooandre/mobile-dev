@@ -24,17 +24,17 @@ class AddMovie : AppCompatActivity() {
 	fun addMovie(view: View) {
 		var valid = true
 
-		if (findViewById<EditText>(R.id.nameET).text.toString().isEmpty()) {
+		if (findViewById<EditText>(R.id.nameET).text.toString().isBlank()) {
 			findViewById<EditText>(R.id.nameET).error = "Title of movie cannot be empty."
 			valid = false
 		}
 
-		if (findViewById<EditText>(R.id.descET).text.toString().isEmpty()) {
+		if (findViewById<EditText>(R.id.descET).text.toString().isBlank()) {
 			findViewById<EditText>(R.id.descET).error = "Description of movie cannot be empty."
 			valid = false
 		}
 
-		if (findViewById<EditText>(R.id.dateET).text.toString().isEmpty()) {
+		if (findViewById<EditText>(R.id.dateET).text.toString().isBlank()) {
 			findViewById<EditText>(R.id.dateET).error = "Release date of movie cannot be empty."
 			valid = false
 		}
