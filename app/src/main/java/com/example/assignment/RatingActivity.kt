@@ -12,10 +12,9 @@ class RatingActivity : AppCompatActivity() {
 		var movie = Movie(
 			"Venom",
 			"When Eddie Brooks acquires the powers of a symbiote, he will have to release his alter-ego Venom to save his life.",
-			"English",
-			"03-10-2018",
-			true
+			"03-10-2018"
 		)
+
 		findViewById<TextView>(R.id.titleTV).text = "Enter your review for the movie: ${movie.title}"
 	}
 }
