@@ -1,5 +1,6 @@
 package com.example.assignment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckBox
@@ -43,32 +44,42 @@ class AddMovie : AppCompatActivity() {
 				R.id.violenceCB
 			).isChecked || findViewById<CheckBox>(R.id.languageCB).isChecked)
 		) {
-			Toast.makeText(
-				applicationContext,
+			Toast.makeText(applicationContext,
 				"Please select a reason for not suitable for all audience",
-				Toast.LENGTH_SHORT
-			).show()
+				Toast.LENGTH_SHORT).show()
 			valid = false
 		}
 
 		if (!valid) return
 
-		var title = findViewById<EditText>(R.id.nameET).text
-		var description = findViewById<EditText>(R.id.descET).text
-		var language =
-			if (findViewById<RadioButton>(R.id.englishRB).isChecked) "English" else if (findViewById<RadioButton>(
-					R.id.chineseRB
-				).isChecked
-			) "Chinese" else if (findViewById<RadioButton>(R.id.malayRB).isChecked) "Malay" else "Tamil"
-		var date = findViewById<EditText>(R.id.dateET).text
-		var suitableForAll = findViewById<LinearLayout>(R.id.checkboxes).visibility == View.INVISIBLE
-		var text =
-			"Title = $title\nOverview = $description\nRelease Date = $date\nLanguage = $language\nNot suitable for all ages = ${!suitableForAll}"
+//		var title = findViewById<EditText>(R.id.nameET).text
+//		var description = findViewById<EditText>(R.id.descET).text
+//		var language =
+//			if (findViewById<RadioButton>(R.id.englishRB).isChecked) "English" else if (findViewById<RadioButton>(
+//					R.id.chineseRB
+//				).isChecked
+//			) "Chinese" else if (findViewById<RadioButton>(R.id.malayRB).isChecked) "Malay" else "Tamil"
+//		var date = findViewById<EditText>(R.id.dateET).text
+//		var suitableForAll = findViewById<LinearLayout>(R.id.checkboxes).visibility == View.INVISIBLE
+//		var text =
+//			"Title = $title\nOverview = $description\nRelease Date = $date\nLanguage = $language\nNot suitable for all ages = ${!suitableForAll}"
+//
+//		if (!suitableForAll) {
+//			if (findViewById<CheckBox>(R.id.violenceCB).isChecked) text += "\nViolence"
+//			if (findViewById<CheckBox>(R.id.languageCB).isChecked) text += "\nLanguage"
+//		}
+//		Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
 
-		if (!suitableForAll) {
-			if (findViewById<CheckBox>(R.id.violenceCB).isChecked) text += "\nViolence"
-			if (findViewById<CheckBox>(R.id.languageCB).isChecked) text += "\nLanguage"
-		}
-		Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
+		var intent = Intent(this, MovieDetail::class.java)
+		intent.putExtra("title", findViewById<EditText>(R.id.nameET).text.toString())
+		intent.putExtra("description", findViewById<EditText>(R.id.descET).text.toString())
+		intent.putExtra("date", findViewById<EditText>(R.id.dateET).text.toString())
+		intent.putExtra("language",
+			if (findViewById<RadioButton>(R.id.englishRB).isChecked) "English" else if (findViewById<RadioButton>(
+					R.id.chineseRB).isChecked) "Chinese" else if (findViewById<RadioButton>(R.id.malayRB).isChecked) "Malay" else "Tamil")
+		intent.putExtra("violence", findViewById<CheckBox>(R.id.violenceCB).isChecked)
+		intent.putExtra("languageUsed", findViewById<CheckBox>(R.id.languageCB).isChecked)
+		startActivity(intent)
+		finish()
 	}
 }
