@@ -54,7 +54,8 @@ class MovieDetail : AppCompatActivity() {
 	}
 
 	override fun onSupportNavigateUp(): Boolean {
-		onBackPressed()
+		var intent = Intent(this, MainActivity::class.java)
+		startActivity(intent)
 		return super.onSupportNavigateUp()
 	}
 
