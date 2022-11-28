@@ -21,6 +21,8 @@ class RatingActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_rating)
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 		findViewById<TextView>(R.id.titleTV).text = "Enter your review for the movie ${intent.getStringExtra("title")}"
 		movie = Movie(
 			intent.getStringExtra("title")!!,
@@ -30,6 +32,11 @@ class RatingActivity : AppCompatActivity() {
 			intent.getBooleanExtra("languageUsed", false)!!,
 			if (intent.getStringExtra("language") == "English") Language.ENGLISH else if (intent.getStringExtra("language") == "Chinese") Language.CHINESE else if (intent.getStringExtra("language") == "Malay") Language.MALAY else Language.TAMIL
 		)
+	}
+
+	override fun onSupportNavigateUp(): Boolean {
+		onBackPressed()
+		return super.onSupportNavigateUp()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {

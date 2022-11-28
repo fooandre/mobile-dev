@@ -17,6 +17,12 @@ class AddMovie : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_add_movie)
 		findViewById<RadioButton>(R.id.englishRB).isChecked = true
+		supportActionBar?.setDisplayHomeAsUpEnabled(true)
+	}
+
+	override fun onSupportNavigateUp(): Boolean {
+		onBackPressed()
+		return super.onSupportNavigateUp()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean {

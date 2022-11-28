@@ -25,10 +25,4 @@
         android:minLines="2"
         android:id="@+id/commentET"
         android:hint="Share your view on the show" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="submit"
-        android:onClick="submit" />
 </LinearLayout>
