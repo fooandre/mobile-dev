@@ -8,6 +8,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_movie_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_rating.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/menu/add_movie_menu.xml" value="0.1361111111111111" />
+        <entry key="app/src/main/res/menu/add_review_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/main_menu.xml" value="0.1361111111111111" />
+        <entry key="app/src/main/res/menu/movie_detail_menu.xml" value="0.2947916666666667" />
       </map>
     </option>
   </component>
