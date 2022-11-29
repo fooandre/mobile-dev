@@ -7,8 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assignment.models.Movie
 
 class MainActivity : AppCompatActivity() {
+	private val movies = mutableListOf<Movie>(
+		Movie("peepee", "poopoo", "23-12-2022"),
+		Movie("quack", "guagua", "31-10-2002")
+	)
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
