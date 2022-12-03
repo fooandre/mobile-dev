@@ -13,13 +13,23 @@ class DbAdapter(context: Context) {
     private var _db: SQLiteDatabase? = null
     private val _dbName = "movieRater.db"
     private val _tableName = "movies"
-    private val _dbCreate = "create table $_dbName(_id integer primary key autoincrement, title text not null, description text not null, releaseDate text not null, violence integer not null, languageUsed integer not null, language text not null, reviewText text, reviewStars real)"
-    private var dbHelper = DbHelper(context, _dbName, _dbVersion)
+    private val _dbCreate = ("create table $_tableName " + "(" +
+            "_id integer primary key autoincrement, " +
+            "title text not null, " +
+            "description text not null, " +
+            "releaseDate text not null, " +
+            "violence integer not null, " +
+            "languageUsed integer not null, " +
+            "language text not null, " +
+            "reviewText text, " +
+            "reviewStars real);")
+    private var dbHelper: DbHelper? = null
+    init { dbHelper = DbHelper(context, _dbName, _dbVersion) }
 
     fun open() {
         _db = try {
-            dbHelper.writableDatabase
-        } catch(e: SQLiteException) { dbHelper.readableDatabase }
+            dbHelper?.writableDatabase
+        } catch(e: SQLiteException) { dbHelper?.readableDatabase }
     }
 
     fun close() { _db?.close() }
@@ -46,8 +56,8 @@ class DbAdapter(context: Context) {
     }
 
     inner class DbHelper(context: Context, dbName: String, versionNum: Int) : SQLiteOpenHelper(context, dbName, null, versionNum) {
-        override fun onCreate(p0: SQLiteDatabase?) {
-            _db?.execSQL(_dbCreate)
+        override fun onCreate(db: SQLiteDatabase?) {
+            db!!.execSQL(_dbCreate)
             Log.w("DB", "Table Created")
         }
 

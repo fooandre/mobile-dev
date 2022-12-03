@@ -39,7 +39,7 @@ class EditMovie : AppCompatActivity() {
 			findViewById<CheckBox>(R.id.violenceCB).isChecked = true
 		}
 
-		if (intent.getBooleanExtra("violence", true)) {
+		if (intent.getBooleanExtra("languageUsed", true)) {
 			findViewById<CheckBox>(R.id.showLayoutCB).isChecked = true
 			findViewById<LinearLayout>(R.id.checkboxes).visibility = View.VISIBLE
 			findViewById<CheckBox>(R.id.languageCB).isChecked = true
