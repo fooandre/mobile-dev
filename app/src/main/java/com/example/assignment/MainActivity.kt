@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 		listView.setOnItemClickListener { adapter, _, index, _ ->
 			val movie = adapter.getItemAtPosition(index) as Movie
 			val intent = Intent(this, MovieDetail::class.java)
+			intent.putExtra("id", movie._id)
 			intent.putExtra("title", movie.title)
 			intent.putExtra("description", movie.description)
 			intent.putExtra("language", if (movie.language == Language.ENGLISH) "English" else if (movie.language == Language.CHINESE) "Chinese" else if (movie.language == Language.MALAY) "Malay" else "Tamil")

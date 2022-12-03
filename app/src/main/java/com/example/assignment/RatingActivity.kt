@@ -13,6 +13,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assignment.models.DbAdapter
 import com.example.assignment.models.Language
 import com.example.assignment.models.Movie
 
@@ -54,8 +55,20 @@ class RatingActivity : AppCompatActivity() {
 		intent.putExtra("language", if (movie!!.language == Language.ENGLISH) "English" else if (movie!!.language == Language.CHINESE) "Chinese" else if (movie!!.language == Language.MALAY) "Malay" else "Tamil")
 		intent.putExtra("violence", movie!!.violence)
 		intent.putExtra("languageUsed", movie!!.languageUsed)
-		intent.putExtra("stars", findViewById<RatingBar>(R.id.stars).rating)
-		intent.putExtra("comment", findViewById<EditText>(R.id.commentET).text.toString())
+
+		if (item.itemId == R.id.submitReview) {
+			val reviewText = findViewById<EditText>(R.id.commentET).text.toString()
+			val reviewStars = findViewById<RatingBar>(R.id.stars).rating
+
+			val db = DbAdapter(applicationContext)
+			db.open()
+			db.addReview(movie!!._id, reviewText, reviewStars)
+			db.close()
+
+			intent.putExtra("comment", reviewText)
+			intent.putExtra("stars", reviewStars)
+		}
+
 		startActivity(intent)
 		return super.onOptionsItemSelected(item)
 	}

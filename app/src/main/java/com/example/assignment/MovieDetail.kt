@@ -14,6 +14,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assignment.models.DbAdapter
 import org.w3c.dom.Text
 
 class MovieDetail : AppCompatActivity() {
@@ -47,12 +48,16 @@ class MovieDetail : AppCompatActivity() {
 			true
 		}
 
-		if (intent.getStringExtra("comment") != null && intent.getStringExtra("comment")!!.isNotBlank()) {
+		val db = DbAdapter(applicationContext)
+		db.open()
+		val reviewText = db.getReviewText(id!!)
+		if (reviewText != null) {
 			findViewById<TextView>(R.id.noReviewsTV).visibility = View.GONE
 			findViewById<LinearLayout>(R.id.reviewLL).visibility = View.VISIBLE
-			findViewById<RatingBar>(R.id.rating).rating = intent.getFloatExtra("stars", 0f)
-			findViewById<TextView>(R.id.reviewTV).text = intent.getStringExtra("comment")
+			findViewById<TextView>(R.id.reviewTV).text = reviewText
+			findViewById<RatingBar>(R.id.rating).rating = db.getReviewStars(id!!)
 		}
+		db.close()
 	}
 
 	override fun onSupportNavigateUp(): Boolean {
