@@ -30,7 +30,7 @@ class MovieDetail : AppCompatActivity() {
 		findViewById<TextView>(R.id.languageTV).text = intent.getStringExtra("language")
 		findViewById<TextView>(R.id.dateTV).text = intent.getStringExtra("date")
 		violence = intent.getBooleanExtra("violence", false)
-		violence = intent.getBooleanExtra("languageUsed", false)
+		languageUsed = intent.getBooleanExtra("languageUsed", false)
 
 		var reason = mutableListOf<String>()
 		if (violence) reason.add("Violence")

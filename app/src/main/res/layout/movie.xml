@@ -59,6 +59,7 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:visibility="invisible"
         android:src="@drawable/warning" />
 
 </RelativeLayout>
