@@ -70,9 +70,9 @@ class AddMovie : AppCompatActivity() {
 			val violence = findViewById<CheckBox>(R.id.violenceCB).isChecked
 			val languageUsed = findViewById<CheckBox>(R.id.languageCB).isChecked
 
-			val id = addMovie(this, title, description, date, violence, languageUsed, language)
+			val id = addMovie(applicationContext, title, description, date, violence, languageUsed, language)
 
-				var intent = Intent(this, MovieDetail::class.java)
+				val intent = Intent(this, MovieDetail::class.java)
 			intent.putExtra("id", id)
 				intent.putExtra("title", title)
 				intent.putExtra("description", description)
