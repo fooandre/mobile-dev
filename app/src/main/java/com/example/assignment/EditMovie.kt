@@ -10,6 +10,7 @@ import com.example.assignment.models.Language
 import com.example.assignment.models.Movie
 
 class EditMovie : AppCompatActivity() {
+	private var id: Long? = null
 	private var violence = false
 	private var languageUsed = false
 
@@ -18,6 +19,7 @@ class EditMovie : AppCompatActivity() {
 		setContentView(R.layout.activity_edit_movie)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+		id = intent.getLongExtra("id", -1)
 		findViewById<TextView>(R.id.nameET).text = intent.getStringExtra("title")
 		findViewById<TextView>(R.id.descET).text = intent.getStringExtra("description")
 		findViewById<TextView>(R.id.dateET).text = intent.getStringExtra("date")

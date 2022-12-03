@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.w3c.dom.Text
 
 class MovieDetail : AppCompatActivity() {
+	private var id: Long? = null
 	private var violence = false
 	private var languageUsed = false
 
@@ -25,6 +26,7 @@ class MovieDetail : AppCompatActivity() {
 		setContentView(R.layout.activity_movie_detail)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+		id = intent.getLongExtra("id", -1)
 		findViewById<TextView>(R.id.titleTV).text = intent.getStringExtra("title")
 		findViewById<TextView>(R.id.descTV).text = intent.getStringExtra("description")
 		findViewById<TextView>(R.id.languageTV).text = intent.getStringExtra("language")
@@ -61,6 +63,7 @@ class MovieDetail : AppCompatActivity() {
 
 	fun goToReview(item: MenuItem) {
 		var intent = Intent(this, RatingActivity::class.java)
+		intent.putExtra("id", id)
 		intent.putExtra("title", findViewById<TextView>(R.id.titleTV).text.toString())
 		intent.putExtra("description", findViewById<TextView>(R.id.descTV).text.toString())
 		intent.putExtra("date", findViewById<TextView>(R.id.dateTV).text.toString())

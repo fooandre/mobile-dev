@@ -25,11 +25,12 @@ class RatingActivity : AppCompatActivity() {
 
 		findViewById<TextView>(R.id.titleTV).text = "Enter your review for the movie ${intent.getStringExtra("title")}"
 		movie = Movie(
+			intent.getLongExtra("id", -1),
 			intent.getStringExtra("title")!!,
 			intent.getStringExtra("description")!!,
 			intent.getStringExtra("date")!!,
-			intent.getBooleanExtra("violence", false)!!,
-			intent.getBooleanExtra("languageUsed", false)!!,
+            intent.getBooleanExtra("violence", false),
+            intent.getBooleanExtra("languageUsed", false),
 			if (intent.getStringExtra("language") == "English") Language.ENGLISH else if (intent.getStringExtra("language") == "Chinese") Language.CHINESE else if (intent.getStringExtra("language") == "Malay") Language.MALAY else Language.TAMIL
 		)
 	}
@@ -46,6 +47,7 @@ class RatingActivity : AppCompatActivity() {
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		var intent = Intent(this, MovieDetail::class.java)
+		intent.putExtra("id", movie!!._id)
 		intent.putExtra("title", movie!!.title)
 		intent.putExtra("description", movie!!.description)
 		intent.putExtra("date", movie!!.releaseDate)
