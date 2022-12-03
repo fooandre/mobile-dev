@@ -47,13 +47,13 @@ class DbAdapter(context: Context) {
     fun getReviewText(id: Long): String? {
         val cursor = _db?.rawQuery("select reviewText from $_tableName where _id = $id", null)
         cursor!!.moveToFirst()
-        return cursor!!.getString(0)
+        return cursor.getString(0)
     }
 
     fun getReviewStars(id: Long): Float {
         val cursor = _db?.rawQuery("select reviewStars from $_tableName where _id = $id", null)
         cursor!!.moveToFirst()
-        return cursor!!.getFloat(0)
+        return cursor.getFloat(0)
     }
 
     fun insert(title: String, description: String, releaseDate: String, violence: Boolean = false, languageUsed: Boolean = false, language: String = "English"): Long? {
@@ -71,6 +71,17 @@ class DbAdapter(context: Context) {
         _db?.execSQL("update movies " +
                 "set reviewText = '$review', reviewStars = $stars " +
                 "where _id = $id")
+    }
+
+    fun updateMovie(id: Long, title: String, description: String, releaseDate: String, violence: Boolean = false, languageUsed: Boolean = false, language: String = "English"): Long? {
+        val newValues = ContentValues()
+        newValues.put("title", title)
+        newValues.put("description", description)
+        newValues.put("releaseDate", releaseDate)
+        newValues.put("violence", violence.toInt())
+        newValues.put("languageUsed", languageUsed.toInt())
+        newValues.put("language", language)
+        return _db?.update(_tableName, newValues, "_id = $id", null)?.toLong()
     }
 
     inner class DbHelper(context: Context, dbName: String, versionNum: Int) : SQLiteOpenHelper(context, dbName, null, versionNum) {

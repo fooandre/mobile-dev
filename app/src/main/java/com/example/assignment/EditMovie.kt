@@ -1,11 +1,13 @@
 package com.example.assignment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.assignment.models.DbAdapter
 import com.example.assignment.models.Language
 import com.example.assignment.models.Movie
 
@@ -85,23 +87,27 @@ class EditMovie : AppCompatActivity() {
 
 			if (!valid) return true
 
-			var title = findViewById<EditText>(R.id.nameET).text
-			var description = findViewById<EditText>(R.id.descET).text
+			var title = findViewById<EditText>(R.id.nameET).text.toString()
+			var description = findViewById<EditText>(R.id.descET).text.toString()
 			var language =
 				if (findViewById<RadioButton>(R.id.englishRB).isChecked) "English" else if (findViewById<RadioButton>(
 						R.id.chineseRB).isChecked) "Chinese" else if (findViewById<RadioButton>(R.id.malayRB).isChecked) "Malay" else "Tamil"
-			var date = findViewById<EditText>(R.id.dateET).text
-			var suitableForAll = findViewById<LinearLayout>(R.id.checkboxes).visibility == View.INVISIBLE
-			var text =
-				"Title = $title\nOverview = $description\nRelease Date = $date\nLanguage = $language\nNot suitable for all ages = ${!suitableForAll}"
+			var date = findViewById<EditText>(R.id.dateET).text.toString()
 
-			if (!suitableForAll) {
-				if (findViewById<CheckBox>(R.id.violenceCB).isChecked) text += "\nViolence"
-				if (findViewById<CheckBox>(R.id.languageCB).isChecked) text += "\nLanguage"
-			}
+			val db = DbAdapter(applicationContext)
+			db.open()
+			db.updateMovie(id!!, title, description, date, violence, languageUsed, language)
+			db.close()
 
-//			TODO: Save to db
-			Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
+			val intent = Intent(this, MovieDetail::class.java)
+			intent.putExtra("id", id)
+			intent.putExtra("title", title)
+			intent.putExtra("description", description)
+			intent.putExtra("language", language)
+			intent.putExtra("date", date)
+			intent.putExtra("violence", violence)
+			intent.putExtra("languageUsed", languageUsed)
+			startActivity(intent)
 		}
 
 		onNavigateUp()
