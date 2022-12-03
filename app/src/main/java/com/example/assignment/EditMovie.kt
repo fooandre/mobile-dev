@@ -1,45 +1,58 @@
 package com.example.assignment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment.models.Language
 import com.example.assignment.models.Movie
 
 class EditMovie : AppCompatActivity() {
-	val movie = Movie("Venom", "OverView", "19-10-2018", true)
+	private var violence = false
+	private var languageUsed = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_edit_movie)
 
-		findViewById<EditText>(R.id.nameET).setText(movie.title)
-		findViewById<EditText>(R.id.descET).setText(movie.description)
-		findViewById<EditText>(R.id.dateET).setText(movie.releaseDate)
+		findViewById<TextView>(R.id.nameET).text = intent.getStringExtra("title")
+		findViewById<TextView>(R.id.descET).text = intent.getStringExtra("description")
+		findViewById<TextView>(R.id.dateET).text = intent.getStringExtra("date")
+		violence = intent.getBooleanExtra("violence", false)
+		languageUsed = intent.getBooleanExtra("languageUsed", false)
 
-		when (movie.language) {
-			Language.CHINESE -> findViewById<RadioButton>(R.id.chineseRB).isChecked = true
-			Language.MALAY -> findViewById<RadioButton>(R.id.malayRB).isChecked = true
-			Language.TAMIL -> findViewById<RadioButton>(R.id.tamilRB).isChecked = true
+		when (intent.getStringExtra("language")) {
+			"Chinese" -> findViewById<RadioButton>(R.id.chineseRB).isChecked = true
+			"Malay" -> findViewById<RadioButton>(R.id.malayRB).isChecked = true
+			"Tamil" -> findViewById<RadioButton>(R.id.tamilRB).isChecked = true
 			else -> findViewById<RadioButton>(R.id.englishRB).isChecked = true
 		}
 
-		if (movie.violence) {
+		if (intent.getBooleanExtra("violence", false)) {
 			findViewById<CheckBox>(R.id.showLayoutCB).isChecked = true
 			findViewById<LinearLayout>(R.id.checkboxes).visibility = View.VISIBLE
 			findViewById<CheckBox>(R.id.violenceCB).isChecked = true
 		}
 
-		if (movie.languageUsed) {
+		if (intent.getBooleanExtra("violence", true)) {
 			findViewById<CheckBox>(R.id.showLayoutCB).isChecked = true
 			findViewById<LinearLayout>(R.id.checkboxes).visibility = View.VISIBLE
 			findViewById<CheckBox>(R.id.languageCB).isChecked = true
 		}
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+		menuInflater.inflate(R.menu.edit_movie_menu, menu)
+		return super.onCreateOptionsMenu(menu)
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		if (item.itemId == R.id.saveChanges) {}
+		if (item.itemId == R.id.cancelChanges) {}
+
+		return super.onOptionsItemSelected(item)
 	}
 
 	fun showCheckboxes(view: View) {

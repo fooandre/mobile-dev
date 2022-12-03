@@ -6,10 +6,7 @@ import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment.models.Language
 import com.example.assignment.models.Movie
@@ -38,6 +35,26 @@ class MainActivity : AppCompatActivity() {
 			intent.putExtra("violence", movie.violence)
 			intent.putExtra("languageUsed", movie.languageUsed)
 			startActivity(intent)
+		}
+
+		listView.setOnItemLongClickListener { adapter, parent, index, _ ->
+			val popup = PopupMenu(this, parent)
+			popup.menuInflater.inflate(R.menu.main_popup_menu, popup.menu)
+			popup.show()
+
+			popup.setOnMenuItemClickListener {
+				val movie = adapter.getItemAtPosition(index) as Movie
+				val intent = Intent(this, EditMovie::class.java)
+				intent.putExtra("title", movie.title)
+				intent.putExtra("description", movie.description)
+				intent.putExtra("language", if (movie.language == Language.ENGLISH) "English" else if (movie.language == Language.CHINESE) "Chinese" else if (movie.language == Language.MALAY) "Malay" else "Tamil")
+				intent.putExtra("date", movie.releaseDate)
+				intent.putExtra("violence", movie.violence)
+				intent.putExtra("languageUsed", movie.languageUsed)
+				startActivity(intent)
+				true
+			}
+			true
 		}
 	}
 
