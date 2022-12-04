@@ -22,7 +22,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_textedit"
         android:minLines="2"
+        android:gravity="top"
         android:id="@+id/commentET"
         android:hint="Share your view on the show" />
 </LinearLayout>

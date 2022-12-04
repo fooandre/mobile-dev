@@ -15,6 +15,9 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_textedit"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
         android:hint="Enter the title of movie"
         android:id="@+id/nameET" />
 
@@ -32,6 +35,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_textedit"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:hint="Enter a short description of the movie"
             android:id="@+id/descET" />
     </LinearLayout>
@@ -48,27 +54,50 @@
         android:weightSum="1">
 
         <RadioButton
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:button="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="English"
+            android:layout_marginRight="5dp"
             android:id="@+id/englishRB" />
 
         <RadioButton
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:button="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="Chinese"
+            android:layout_marginRight="5dp"
             android:id="@+id/chineseRB" />
 
         <RadioButton
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:button="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:text="Malay"
+            android:layout_marginRight="5dp"
             android:id="@+id/malayRB" />
 
         <RadioButton
+            android:background="@drawable/custom_radiobutton"
+            android:textColor="@drawable/radiobutton_color_selector"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:button="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
@@ -90,6 +119,9 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_textedit"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:inputType="date"
             android:hint="Enter release date"
             android:id="@+id/dateET" />
