@@ -1,21 +1,15 @@
 package com.example.assignment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.PopupMenu
-import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.assignment.models.DbAdapter
-import org.w3c.dom.Text
 
 class MovieDetail : AppCompatActivity() {
 	private var id: Long? = null
@@ -61,7 +55,7 @@ class MovieDetail : AppCompatActivity() {
 	}
 
 	override fun onSupportNavigateUp(): Boolean {
-		var intent = Intent(this, MainActivity::class.java)
+		var intent = Intent(this, MoviesList::class.java)
 		startActivity(intent)
 		return super.onSupportNavigateUp()
 	}
