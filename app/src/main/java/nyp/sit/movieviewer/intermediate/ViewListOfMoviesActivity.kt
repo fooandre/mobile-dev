@@ -1,28 +1,28 @@
 package nyp.sit.movieviewer.intermediate
 
-import android.graphics.Movie
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.room.InvalidationTracker
 import kotlinx.android.synthetic.main.activity_view_list_of_movies.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import nyp.sit.movieviewer.intermediate.entity.MovieItem
 
 class ViewListOfMoviesActivity : AppCompatActivity() {
+    private lateinit var moviesViewModel: MoviesListViewModel
+    private val movies = mutableListOf<MovieItem>()
 
-    private val viewModel: MoviesListViewModel by viewModels() { MoviesViewModelFactory((application as MyMovies).repo) }
+    private var state: Parcelable? = null
 
     val SHOW_BY_TOP_RATED = 1
     val SHOW_BY_POPULAR = 2
@@ -33,33 +33,49 @@ class ViewListOfMoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_list_of_movies)
 
-//        viewModel.insert(MovieItem(adult = false,
-//            title = "ur mom",
-//            backdrop_path = "",
-//            genre_ids = "",
-//            original_language = "English",
-//            original_title = "bruh",
-//            overview = "no",
-//            poster_path = "",
-//            release_date = "20-12-2020",
-//            video = true))
+        val appScope = CoroutineScope(SupervisorJob())
+        val db by lazy { MoviesDb.getInstance(this, appScope) }
+        val repo by lazy { MoviesRepository(db.MoviesDAO()) }
+        moviesViewModel = ViewModelProvider(this, MoviesViewModelFactory(repo))[MoviesListViewModel::class.java]
 
-        viewModel.movies.observe(this, Observer {
+        moviesViewModel.movies.observe(this, Observer {
             var movies = mutableListOf<MovieItem>()
             for (movie in it) movies.add(movie)
-            it?.let { movielist.adapter = ArrayAdapter(this, R.layout.movie_item, R.id.movieName, movies) }
+            it?.let { movielist.adapter = ListViewAdapter(this, movies) }
         })
+
+        movielist.setOnItemClickListener { adapter, _, index, _ ->
+            val intent = Intent(this, ItemDetailActivity::class.java)
+            intent.putExtra("id", (adapter.getItemAtPosition(index) as MovieItem).id)
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {
         super.onStart()
+        Log.w("Fetch Movies", "Getting Movies")
         loadMovieData(displayType)
+        Log.w("Fetch Movies", "Got Movies")
     }
 
     private fun loadMovieData(viewType: Int) {
         val showTypeStr = when (viewType) {
             SHOW_BY_POPULAR -> NetworkUtils.POPULAR_PARAM
             else -> NetworkUtils.TOP_RATED_PARAM
+        }
+
+        displayType = viewType
+
+        movies.clear()
+        GlobalScope.launch(Dispatchers.IO) {
+            val url = NetworkUtils.buildUrl(showTypeStr, getString(R.string.moviedb_api_key))!!
+            val res = NetworkUtils.getResponseFromHttpUrl(url) ?: return@launch
+            val data = movieDBJsonUtils.getMovieDetailsFromJson(this@ViewListOfMoviesActivity, res) ?: return@launch
+            data.let {
+                moviesViewModel.deleteAll()
+                moviesViewModel.insertAll(it)
+                for (movie in it) movies.add(movie)
+            }
         }
     }
 
@@ -75,5 +91,4 @@ class ViewListOfMoviesActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

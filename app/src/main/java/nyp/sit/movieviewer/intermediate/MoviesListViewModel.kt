@@ -18,5 +18,7 @@ import nyp.sit.movieviewer.intermediate.entity.MovieItem
 class MoviesListViewModel(private val repo: MoviesRepository) : ViewModel() {
 	public val movies: LiveData<List<MovieItem>> = repo.movies.asLiveData()
 
-	fun insert(movie: MovieItem) = viewModelScope.launch(Dispatchers.IO) { repo.insert(movie) }
+	fun insertAll(movies: ArrayList<MovieItem>) = viewModelScope.launch(Dispatchers.IO) { repo.insertAll(movies) }
+	fun getMovie(id: Int) = viewModelScope.launch(Dispatchers.IO) { repo.getMovie(id) }
+	fun deleteAll() = viewModelScope.launch(Dispatchers.IO) { repo.deleteAll() }
 }

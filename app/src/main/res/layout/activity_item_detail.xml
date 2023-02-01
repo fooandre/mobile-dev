@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ItemDetailActivity">
+    tools:context=".ItemDetailActivity"
+    android:padding="20dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -212,5 +213,3 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
-
-
