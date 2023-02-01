@@ -15,4 +15,10 @@
         android:id="@+id/sortTopRated"
         />
 
+
+    <item
+        android:title="@string/view_my_fav"
+        app:showAsAction="never"
+        android:id="@+id/viewFav"
+        />
 </menu>

@@ -3,4 +3,5 @@
     <string name="menu_sort_popular">Sort by Popularity</string>
     <string name="menu_sort_top_rated">Sort by Ratings</string>
     <string name="moviedb_api_key">37f6d6b1a1eb78325cf653ac5c34846f</string>
+    <string name="view_my_fav">View my Fav</string>
 </resources>
