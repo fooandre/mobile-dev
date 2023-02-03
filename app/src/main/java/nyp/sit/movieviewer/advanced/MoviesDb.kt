@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import nyp.sit.movieviewer.advanced.entity.*
 
-@Database(entities = [MovieItem::class, UserData::class], version = 1, exportSchema = false)
+@Database(entities = [MovieItem::class], version = 1, exportSchema = false)
 abstract class MoviesDb : RoomDatabase() {
 	abstract fun MoviesDAO(): MoviesDAO
 

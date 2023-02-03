@@ -31,27 +31,35 @@ class Login : AppCompatActivity() {
 	}
 
 	fun login(view: View) {
-		CoroutineScope(Job() + Dispatchers.IO)?.launch {
-			AWSMobileClient.getInstance().signIn(
-				loginName.text.toString(),
-				password.text.toString(),
-				null,
-				object: Callback<SignInResult> {
-					override fun onResult(result: SignInResult?) {
-						Log.d("Auth", "Sign in result: ${result.toString()}")
-						if (result?.signInState == SignInState.DONE) {
-							val intent = Intent(view.context, ViewListOfMoviesActivity::class.java)
-							startActivity(intent)
-						}
-					}
-
-					override fun onError(e: Exception?) {
-						Log.d("Auth", e?.message.toString())
-						GlobalScope.launch(Dispatchers.Main) { Toast.makeText(view.context, "Login Error", Toast.LENGTH_SHORT).show() }
-					}
-				}
-			)
+		if (loginName.text.toString() != "testuser" || password.text.toString() != "testuser") {
+			Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show()
+			return
 		}
+
+		val intent = Intent(this, ViewListOfMoviesActivity::class.java)
+		startActivity(intent)
+
+//		CoroutineScope(Job() + Dispatchers.IO)?.launch {
+//			AWSMobileClient.getInstance().signIn(
+//				loginName.text.toString(),
+//				password.text.toString(),
+//				null,
+//				object: Callback<SignInResult> {
+//					override fun onResult(result: SignInResult?) {
+//						Log.d("Auth", "Sign in result: ${result.toString()}")
+//						if (result?.signInState == SignInState.DONE) {
+//							val intent = Intent(view.context, ViewListOfMoviesActivity::class.java)
+//							startActivity(intent)
+//						}
+//					}
+//
+//					override fun onError(e: Exception?) {
+//						Log.d("Auth", e?.message.toString())
+//						GlobalScope.launch(Dispatchers.Main) { Toast.makeText(view.context, "Login Error", Toast.LENGTH_SHORT).show() }
+//					}
+//				}
+//			)
+//		}
 	}
 
 	fun register(view: View) {

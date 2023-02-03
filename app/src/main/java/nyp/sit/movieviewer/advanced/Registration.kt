@@ -62,21 +62,21 @@ class Registration : AppCompatActivity() {
 
 		if (!valid) return
 
-		val userPool = CognitoUserPool(view.context, AWSMobileClient.getInstance().configuration)
-
-		val userAttrs = CognitoUserAttributes()
-		userAttrs.addAttribute("email", email.text.toString())
-		userAttrs.addAttribute("custom:AdminNumber", adminNumber.text.toString())
-		userAttrs.addAttribute("custom:PemGrp", pemGroup.text.toString())
-
-		userPool.signUp(loginName.text.toString(),
-			passwordInp,
-			userAttrs,
-			null,
-			object : SignUpHandler {
-				override fun onSuccess(user: CognitoUser?, signUpResult: SignUpResult?) { Log.d("Urmom", "Sign up success: ${signUpResult?.userConfirmed}") }
-				override fun onFailure(exception: Exception?) { Log.d("HiBye", exception?.message.toString()) }
-			})
+//		val userPool = CognitoUserPool(view.context, AWSMobileClient.getInstance().configuration)
+//
+//		val userAttrs = CognitoUserAttributes()
+//		userAttrs.addAttribute("email", email.text.toString())
+//		userAttrs.addAttribute("custom:AdminNumber", adminNumber.text.toString())
+//		userAttrs.addAttribute("custom:PemGrp", pemGroup.text.toString())
+//
+//		userPool.signUp(loginName.text.toString(),
+//			passwordInp,
+//			userAttrs,
+//			null,
+//			object : SignUpHandler {
+//				override fun onSuccess(user: CognitoUser?, signUpResult: SignUpResult?) { Log.d("Urmom", "Sign up success: ${signUpResult?.userConfirmed}") }
+//				override fun onFailure(exception: Exception?) { Log.d("HiBye", exception?.message.toString()) }
+//			})
 
 		Toast.makeText(applicationContext, "Login Name: ${loginName.text}\nPassword: ${password.text}\nEmail: ${email.text}\nAdmin Number: ${adminNumber.text}\nPEM Group : ${pemGroup.text}", Toast.LENGTH_SHORT).show()
 		val intent = Intent(this, Login::class.java)
