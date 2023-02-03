@@ -1,4 +1,4 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.app.Application
 import kotlinx.coroutines.CoroutineScope

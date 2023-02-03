@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="nyp.sit.movieviewer.intermediate">
+    package="nyp.sit.movieviewer.advanced">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,22 +16,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieViewer"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Registration"
+            android:exported="true" />
+        <activity
+            android:name=".Login"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".ViewListOfMoviesActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ItemDetailActivity"
             android:exported="true"
             android:parentActivityName=".ViewListOfMoviesActivity" />
-
     </application>
 
 </manifest>

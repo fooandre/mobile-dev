@@ -1,4 +1,4 @@
-package nyp.sit.movieviewer.intermediate.entity
+package nyp.sit.movieviewer.advanced.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

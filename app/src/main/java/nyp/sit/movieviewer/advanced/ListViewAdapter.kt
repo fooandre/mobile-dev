@@ -1,4 +1,4 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
 
 class ListViewAdapter(private val context: Context, private val data: MutableList<MovieItem>) : BaseAdapter() {
 	private val inflater = LayoutInflater.from(context)

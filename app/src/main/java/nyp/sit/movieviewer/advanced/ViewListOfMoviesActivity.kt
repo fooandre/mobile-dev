@@ -1,4 +1,4 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,13 +10,17 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.amazonaws.mobile.client.AWSMobileClient
+import com.amazonaws.mobile.client.Callback
+import com.amazonaws.mobile.client.SignOutOptions
 import kotlinx.android.synthetic.main.activity_view_list_of_movies.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
+import java.lang.Exception
 
 class ViewListOfMoviesActivity : AppCompatActivity() {
     private lateinit var moviesViewModel: MoviesListViewModel
@@ -88,7 +92,23 @@ class ViewListOfMoviesActivity : AppCompatActivity() {
         when (item?.itemId) {
             R.id.sortPopular -> loadMovieData(SHOW_BY_POPULAR)
             R.id.sortTopRated -> loadMovieData(SHOW_BY_TOP_RATED)
+            R.id.signOut -> signOut()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun signOut() {
+        AWSMobileClient.getInstance().signOut(
+            SignOutOptions.Builder().signOutGlobally(false).build(),
+            object: Callback<Void> {
+                override fun onResult(result: Void?) {
+                    val intent = Intent(this@ViewListOfMoviesActivity, Login::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+                override fun onError(e: Exception?) { Log.d("Auth", e?.message.toString()) }
+            }
+        )
     }
 }

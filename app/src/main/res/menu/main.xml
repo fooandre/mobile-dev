@@ -21,4 +21,10 @@
         app:showAsAction="never"
         android:id="@+id/viewFav"
         />
+
+    <item
+        android:title="Sign Out"
+        app:showAsAction="never"
+        android:id="@+id/signOut"
+        />
 </menu>

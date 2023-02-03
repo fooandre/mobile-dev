@@ -1,4 +1,4 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -13,7 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
 
 class MoviesListViewModel(private val repo: MoviesRepository) : ViewModel() {
 	public val movies: LiveData<List<MovieItem>> = repo.movies.asLiveData()

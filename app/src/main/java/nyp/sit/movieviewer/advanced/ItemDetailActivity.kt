@@ -1,8 +1,10 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
@@ -16,11 +18,13 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.UserData
 
 class ItemDetailActivity : AppCompatActivity() {
 
     private var movie: MovieItem? = null
+    private lateinit var viewModel: UserDataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,10 @@ class ItemDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val appScope = CoroutineScope(SupervisorJob())
+        val userDataDb by lazy { MoviesDb.getInstance(this, appScope) }
+        val userDataRepo by lazy { UserDataRepository(userDataDb.MoviesDAO()) }
+        viewModel = ViewModelProvider(this, UserDataViewModelFactory(userDataRepo))[UserDataViewModel::class.java]
+
         val db by lazy { MoviesDb.getInstance(this, appScope) }
         val dao = db.MoviesDAO()
 
@@ -51,6 +59,15 @@ class ItemDetailActivity : AppCompatActivity() {
             Picasso.get().load(imageUrl?.toString()).into(posterIV)
             Log.w("Fetch Details", "Got Poster")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.movie, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

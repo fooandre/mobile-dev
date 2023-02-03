@@ -1,4 +1,4 @@
-<resources>
+ <resources>
     <string name="app_name">Movie Viewer</string>
     <string name="menu_sort_popular">Sort by Popularity</string>
     <string name="menu_sort_top_rated">Sort by Ratings</string>

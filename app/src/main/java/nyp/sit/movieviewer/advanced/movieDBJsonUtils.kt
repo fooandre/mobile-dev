@@ -1,7 +1,7 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
 import android.content.Context
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.ArrayList

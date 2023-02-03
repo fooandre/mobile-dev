@@ -1,6 +1,6 @@
-package nyp.sit.movieviewer.intermediate
+package nyp.sit.movieviewer.advanced
 
-import nyp.sit.movieviewer.intermediate.entity.MovieItem
+import nyp.sit.movieviewer.advanced.entity.MovieItem
 
 class MoviesRepository(private val moviesDAO: MoviesDAO) {
 	val movies = moviesDAO.getMovies()
